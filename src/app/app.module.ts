@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { DataTableModule } from "angular2-datatable";
@@ -17,6 +18,16 @@ import { EmailComponent } from '../app/home/content/email/email.component'
 import { DirectComponent } from '../app/home/content/direct/direct.component'
 import { OrganicComponent } from '../app/home/content/organic/organic.component'
 
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: LoginComponent
+  }, {
+    path: 'Home',
+    component: HomeComponent
+  }
+]
+
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, HeaderComponent, FooterComponent,
@@ -28,7 +39,8 @@ import { OrganicComponent } from '../app/home/content/organic/organic.component'
     FormsModule,
     HttpModule,
     DataTableModule,
-    ChartModule
+    ChartModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

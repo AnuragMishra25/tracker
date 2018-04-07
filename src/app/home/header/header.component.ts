@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'header-component',
@@ -7,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent {
 
-    constructor() {
+    constructor(private router: Router) {
 
     }
 
     signout(){
         console.log('signout');
+        this.router.navigateByUrl('/');
     }
 }

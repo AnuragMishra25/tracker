@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentComponent {
 
-    currentTab: 'General';
+    currentTab= 'General';
     chartType = 'horizontalBar';
     data: any;
     options: any;

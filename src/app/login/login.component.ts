@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'login-component',
@@ -10,7 +11,11 @@ export class LoginComponent {
     email: string;
     password: string;
 
-    constructor() {
+    constructor(private router: Router) {
+        
+    }
 
+    login() {
+        this.router.navigateByUrl('/Home');
     }
 }
