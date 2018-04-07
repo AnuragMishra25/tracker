@@ -1,6 +1,7 @@
 <h3>Welcome User</h3>
+<br><br>
 <div class="row">
-    <ul class="nav nav-tabs" style="font-size:20px;">
+    <ul class="nav nav-tabs" style="font-size:18px;">
         <li [ngClass]="{'active': currentTab=='General'}">
             <a (click)="onTabClick('General')">General</a>
         </li>
@@ -24,7 +25,7 @@
 <div [ngSwitch]="currentTab" class="tab-content">
     <template [ngSwitchCase]="'General'">
         <div class="panel-body">
-            General
+            <h4>General</h4>
             <div class="row" >
                 <chart style="height:500px;width: 700px;" [type]="chartType" [data]="data" [options]="options"></chart>
             </div>
