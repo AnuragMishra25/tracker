@@ -1,0 +1,60 @@
+<h3>Welcome User</h3>
+<div class="row">
+    <ul class="nav nav-tabs" style="font-size:20px;">
+        <li [ngClass]="{'active': currentTab=='General'}">
+            <a (click)="onTabClick('General')">General</a>
+        </li>
+        <li [ngClass]="{'active': currentTab=='Facebook'}">
+            <a (click)="onTabClick('Facebook')">Facebook</a>
+        </li>
+        <li [ngClass]="{'active': currentTab=='Google'}">
+            <a (click)="onTabClick('Google')">Google</a>
+        </li>
+        <li [ngClass]="{'active': currentTab=='Email'}">
+            <a (click)="onTabClick('Email')">Email</a>
+        </li>
+        <li [ngClass]="{'active': currentTab=='Organic'}">
+            <a (click)="onTabClick('Organic')">Organic</a>
+        </li>
+        <li [ngClass]="{'active': currentTab=='Direct'}">
+            <a (click)="onTabClick('Direct')">Direct</a>
+        </li>
+    </ul>
+</div>
+<div [ngSwitch]="currentTab" class="tab-content">
+    <template [ngSwitchCase]="'General'">
+        <div class="panel-body">
+            General
+        </div>
+    </template>
+    <template [ngSwitchCase]="'Facebook'">
+        <div class="panel-body">
+            <facebook-component></facebook-component>
+        </div>
+    </template>
+    <template [ngSwitchCase]="'Google'">
+        <div class="panel-body">
+            <google-component></google-component>
+        </div>
+    </template>
+    <template [ngSwitchCase]="'Email'">
+        <div class="panel-body">
+            <email-component></email-component>
+        </div>
+    </template>
+    <template [ngSwitchCase]="'Organic'">
+        <div class="panel-body">
+            <organic-component></organic-component>
+        </div>
+    </template>
+    <template [ngSwitchCase]="'Direct'">
+        <div class="panel-body">
+            <direct-component></direct-component>
+        </div>
+    </template>
+    <template [ngSwitchCase]="'User_Journey'">
+        <div class="panel-body">
+            User Journey
+        </div>
+    </template>
+</div>
