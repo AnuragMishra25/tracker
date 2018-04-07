@@ -26,6 +26,23 @@
     <template [ngSwitchCase]="'General'">
         <div class="panel-body">
             <h4>General</h4>
+            <form action="">
+                <div class="row">
+                    <div class="form-group col-xs-2">
+                        <label>Domain/Page : </label>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <select>
+                            <option>funding</option>
+                            <option>socities</option>
+                            <option>google</option>
+                            <option>loada</option>
+                            <option>ghanta</option>
+
+                        </select>
+                    </div>
+                </div>
+            </form>
             <div class="row" >
                 <chart style="height:500px;width: 700px;" [type]="chartType" [data]="data" [options]="options"></chart>
             </div>
