@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ChartModule } from 'angular2-chartjs';
 
 import { AppComponent } from './app.component';
 import { DataTableModule } from "angular2-datatable";
@@ -26,7 +27,8 @@ import { OrganicComponent } from '../app/home/content/organic/organic.component'
     BrowserModule,
     FormsModule,
     HttpModule,
-    DataTableModule
+    DataTableModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

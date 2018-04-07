@@ -25,6 +25,9 @@
     <template [ngSwitchCase]="'General'">
         <div class="panel-body">
             General
+            <div class="row" >
+                <chart style="height:500px;width: 700px;" [type]="chartType" [data]="data" [options]="options"></chart>
+            </div>
         </div>
     </template>
     <template [ngSwitchCase]="'Facebook'">
