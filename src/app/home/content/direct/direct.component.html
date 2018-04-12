@@ -2,31 +2,51 @@
     <h4>Direct</h4>
 </div>
 <div class="row">
-    <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
-                <th style="width: 15%">
-                    <mfDefaultSorter by="id">Id</mfDefaultSorter>
-                </th>
-                <th style="width: 15%">
-                    <mfDefaultSorter by="medium">Medium</mfDefaultSorter>
-                </th>
-                <th style="width: 20%">
-                    <mfDefaultSorter by="campaign">Campaign</mfDefaultSorter>
-                </th>
-                <th style="width: 10%">
-                    <mfDefaultSorter by="term">Term</mfDefaultSorter>
-                </th>
-                <th style="width: 20%">
-                    <mfDefaultSorter by="content">Content</mfDefaultSorter>
-                </th>
-                <th style="width: 20%">
-                    <mfDefaultSorter by="others">Others</mfDefaultSorter>
-                </th>
+                <td style="width: 15%">
+                    Id
+                </td>
+                <td style="width: 15%">
+                    Medium
+                </td>
+                <td style="width: 20%">
+                    Campaign
+                </td>
+                <td style="width: 10%">
+                    Term
+                </td>
+                <td style="width: 20%">
+                    Content
+                </td>
+                <td style="width: 20%">
+                    Others
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 15%">
+                    <input type="number" (change)= "searchChange('id')" [(ngModel)] = "id">
+                </td>
+                <td style="width: 15%">
+                    <input type="text" [(ngModel)] = "medium">
+                </td>
+                <td style="width: 20%">
+                    <input type="text" [(ngModel)] = "campaign">
+                </td>
+                <td style="width: 10%">
+                    <input type="text" [(ngModel)] = "medium">
+                </td>
+                <td style="width: 20%">
+                    <input type="text">
+                </td>
+                <td style="width: 20%">
+                    <input type="text">
+                </td>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of mf.data">
+            <tr *ngFor="let item of data">
                 <td>{{item.id}}</td>
                 <td>{{item.medium}}</td>
                 <td>{{item.campaign}}</td>
@@ -38,7 +58,6 @@
         <tfoot>
             <tr>
                 <td colspan="4">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
                 </td>
             </tr>
         </tfoot>

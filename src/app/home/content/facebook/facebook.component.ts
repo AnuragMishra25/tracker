@@ -1,18 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { TrackerService } from '../../../services/trackerService';
 
 @Component({
     selector: 'facebook-component',
     templateUrl: './facebook.component.html',
-    styleUrls: ['./facebook.component.css']
+    styleUrls: ['./facebook.component.css'],
+    providers: [TrackerService]
 })
 export class FacebookComponent {
     data: any = [];
-    constructor() {
+    constructor(private service: TrackerService) {
 
     }
 
     ngOnInit() {
-        this.getData()
+        // this.getData();
+        this.service.getFacebookById(1).subscribe(
+            res=>{
+                this.data = [];
+                this.data.push(res.data);
+                console.log("Response came");
+            },
+            err=>{
+                console.log("Error occurred");
+            }
+        )
     }
 
     getData() {

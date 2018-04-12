@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
 import { DataTableModule } from "angular2-datatable";
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     HttpModule,
     DataTableModule,
     ChartModule,
+    NgxDatatableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
