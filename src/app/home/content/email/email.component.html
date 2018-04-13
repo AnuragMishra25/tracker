@@ -1,22 +1,32 @@
 <div class="row">
-    <h4>Email</h4>
+</div>
+<div class="row" style="margin-top:20px;margin-bottom: 20px">
+    <label class="col-xs-2">Search Column</label>
+    <div class="col-xs-2">
+        <select [(ngModel)]="searchColumn">
+            <option value="id">Id</option>
+            <option value="campaign">Campaign Name</option>
+            <option value="medium">Medium</option>
+            <option value="content">Content</option>
+            <option value="term">Term</option>
+            <option value="others">Others</option>
+        </select>
+    </div>
+    <label class="col-xs-2">Search Keyword</label>
+    <div class="col-xs-3">
+        <input type="text" [(ngModel)]="searchKeyword">
+    </div>
+    <div class="col-xs-2">
+        <button class="btn btn-sm btn-primary" (click)="onSearch()">Search</button>
+        <button class="btn btn-sm btn-warning" (click)="onClear()">Clear</button>
+    </div>
 </div>
 <div class="row">
     <div>
-            <input
-            type='text'
-            style='padding:8px;margin:15px auto;width:30%;'
-            placeholder='Type to filter the name column...'
-            (keyup)='updateFilter($event)'
-          />
-        <ngx-datatable class="material" [rows]="rows" 
-        [columns]="[{name: 'Id'},{name:'Campaign Name'},{name:'Medium' }, 
+        <ngx-datatable class="bootstrap" [rows]="rows" [columns]="[{name: 'Id'},{name:'Campaign Name'},{name:'Medium' }, 
         {name: 'Content'},{name: 'Term'}, {name : 'Visit Counter'},{name : 'Created At'},
-         {name: 'Others'}]" 
-        [columnMode]="'force'"
-            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements"
-            [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)'
-            (sort)='onSort($event)'>
+         {name: 'Others'}]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true"
+            [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)' (sort)='onSort($event)'>
         </ngx-datatable>
     </div>
 </div>

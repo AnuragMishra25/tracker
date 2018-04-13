@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackerService } from '../../../services/trackerService';
+import { Page, PagedData } from '../../../helpers/PageClass';
 
 @Component({
     selector: 'email-component',
@@ -12,15 +13,13 @@ export class EmailComponent {
     page = new Page();
     rows = new Array<any>();
     sortColumn: string = '';
-    columns = [
-        { prop: 'name' },
-        { name: 'Company' },
-        { name: 'Gender' }
-    ];
+    searchKeyword: string = '';
+    searchColumn: string = '';
+
     constructor(private service: TrackerService) {
         this.page.pageNumber = 1;
         this.page.size = 4;
-        // this.getData({ offset: 0 });
+        this.sortColumn = 'id,asc';
     }
 
     setPage(pageInfo) {
@@ -36,7 +35,14 @@ export class EmailComponent {
         let obj: any = {};
         obj.currentPage = this.page.pageNumber;
         obj.pageSize = this.page.size;
-        obj.search = '';
+        obj.search = this.searchKeyword;
+        if (this.searchColumn == 'campaign') {
+            obj.searchColumn = 'campaignName';
+        } else if (this.searchColumn == 'visit') {
+            obj.searchColumn = 'visitCounter'
+        } else {
+            obj.searchColumn = this.searchColumn;
+        }
         obj.sortColumn = this.sortColumn;
         this.service
             .getEmailByParams(obj)
@@ -66,7 +72,6 @@ export class EmailComponent {
             local.others = jsonObj.others;
             local.visitCounter = jsonObj.visitCounter;
             local.createdAt = jsonObj.createdAt;
-            // local.updatedAt = jsonObj.updatedAt;
             pagedData.data.push(local);
         }
         pagedData.page = page;
@@ -78,25 +83,20 @@ export class EmailComponent {
         console.log(eve.column.prop);
         console.log(eve.newValue);
         this.sortColumn = eve.column.prop + ',' + eve.newValue;
-        this.setPage({offset: 0});
+        this.setPage({ offset: 0 });
         this.page.pageNumber = 1;
-        // this.getDataFromServer();
+    }
+
+    onSearch() {
+        this.getDataFromServer();
+    }
+
+    onClear() {
+        this.searchColumn = '';
+        this.searchKeyword = '';
+        this.getDataFromServer();
     }
 
 }
 
-export class Page {
-    //The number of elements in the page
-    size: number = 0;
-    //The total number of elements
-    totalElements: number = 0;
-    //The total number of pages
-    totalPages: number = 0;
-    //The current page number
-    pageNumber: number = 0;
-}
 
-export class PagedData {
-    data = new Array<any>();
-    page = new Page();
-}

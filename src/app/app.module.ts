@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
-import { DataTableModule } from "angular2-datatable";
+// import { DataTableModule } from "angular2-datatable";
 import { LoginComponent } from '../app/login/login.component';
 import { HomeComponent } from '../app/home/home.component';
 import { HeaderComponent } from '../app/home/header/header.component';
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    DataTableModule,
+    // DataTableModule,
     ChartModule,
     NgxDatatableModule,
     RouterModule.forRoot(appRoutes)

@@ -75,6 +75,33 @@ export class TrackerService {
 
     getEmailByParams(params) {
         return this.http
+            .get(TRACKER_ADDRESS + 'email', this.setRequestOptions(params))
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    getFacebookByParams(params) {
+        return this.http
+            .get(TRACKER_ADDRESS + 'facebook', this.setRequestOptions(params))
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    getGoogleByParams(params) {
+        return this.http
+            .get(TRACKER_ADDRESS + 'google', this.setRequestOptions(params))
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    getOrganicByParams(params) {
+        return this.http
             .get(TRACKER_ADDRESS + 'organic', this.setRequestOptions(params))
             .map((response: Response) => {
                 return response.json();
