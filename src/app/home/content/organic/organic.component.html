@@ -3,31 +3,69 @@
     <div class="row" style="margin-top:20px;margin-bottom: 20px">
         <label class="col-xs-2">Search Column</label>
         <div class="col-xs-2">
-            <select [(ngModel)]="searchColumn">
+            <select [(ngModel)]="searchColumn" (change)="onSelectChange()">
                 <option value="id">Id</option>
                 <option value="campaign">Campaign Name</option>
-                <option value="visit">Visit Counter</option>
                 <option value="medium">Medium</option>
                 <option value="content">Content</option>
                 <option value="term">Term</option>
+                <option value="source">Source</option>
                 <option value="others">Others</option>
             </select>
         </div>
         <label class="col-xs-2">Search Keyword</label>
-        <div class="col-xs-3">
+        <div class="col-xs-3" *ngIf="!isSource">
             <input type="text" [(ngModel)]="searchKeyword">
+        </div>
+        <div class="col-xs-3" *ngIf="isSource">
+            <select [(ngModel)]="searchSource">
+                <option value="1">First Source</option>
+                <option value="2">Second Source</option>
+                <option value="3">Third Source</option>
+                <option value="4">Fourth Source</option>
+                <option value="5">Fifth Source</option>
+                <option value="6">Older Source</option>
+            </select>
         </div>
         <div class="col-xs-2">
             <button class="btn btn-md btn-primary" (click)="onSearch()">Search</button>
             <button class="btn btn-md btn-warning" (click)="onClear()">Clear</button>
         </div>
     </div>
-    <div class="row">
+    <small>
+        <a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a> |
+        <a href="javascript:void(0)" (click)="table.rowDetail.collapseAllRows()">Collapse All</a>
+    </small>
+    <div class="row" style="padding-left: 10px;padding-right: 10px;">
         <div>
-            <ngx-datatable class="bootstrap" [rows]="rows" [columns]="[{name: 'Id'},{name:'Campaign Name'},{name:'Medium' }, 
-            {name: 'Content'},{name: 'Term'}, {name : 'Visit Counter'},{name : 'Created At'},
-             {name: 'Others'}]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true"
-                [count]="page.totalElements" [offset]="page.pageNumber-1" [limit]="page.size" (page)='setPage($event)' (sort)='onSort($event)'>
+            <ngx-datatable #orTable class="bootstrap expandable" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+                (page)='setPage($event)' (sort)='onSort($event)'>
+                <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+                    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                        <div style="padding-left:35px;">
+                            <div>
+                                <strong>Others</strong>
+                            </div>
+                            <div>{{row.others}}</div>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-row-detail>
+                <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                        <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
+                            (click)="toggleExpandRow(row)">
+                        </a>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Id"></ngx-datatable-column>
+                <ngx-datatable-column name="Campaign Name"></ngx-datatable-column>
+                <ngx-datatable-column name="Medium"></ngx-datatable-column>
+                <ngx-datatable-column name="Content"></ngx-datatable-column>
+                <ngx-datatable-column name="Term"></ngx-datatable-column>
+                <ngx-datatable-column name="Source Level"></ngx-datatable-column>
+                <ngx-datatable-column name="Created At"></ngx-datatable-column>
+                <!-- <ngx-datatable-column name="Others" ></ngx-datatable-column> -->
             </ngx-datatable>
         </div>
     </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef,ViewEncapsulation, ViewChild } from '@angular/core';
 import { TrackerService } from '../../../services/trackerService';
 import { Page, PagedData } from '../../../helpers/PageClass';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Utility } from '../../../helpers/utility';
 
 @Component({
     selector: 'google-component',
@@ -16,12 +17,16 @@ export class GoogleComponent {
     sortColumn: string = '';
     searchKeyword: string = '';
     searchColumn: string = '';
+    isSource: boolean = false;
+    searchSource: string = '';
+    expanded: any = {};
+    @ViewChild('ggTable') table: any;
 
     constructor(private service: TrackerService,
         public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
         this.page.pageNumber = 1;
-        this.page.size = 4;
+        this.page.size = 20;
         this.sortColumn = 'id,asc';
     }
 
@@ -41,8 +46,9 @@ export class GoogleComponent {
         obj.search = this.searchKeyword;
         if (this.searchColumn == 'campaign') {
             obj.searchColumn = 'campaignName';
-        } else if (this.searchColumn == 'visit') {
+        } else if (this.searchColumn == 'source') {
             obj.searchColumn = 'visitCounter'
+            obj.search = this.searchSource;
         } else {
             obj.searchColumn = this.searchColumn;
         }
@@ -56,7 +62,6 @@ export class GoogleComponent {
                     this.rows = pagedData.data;
                 }, error => {
                     this.toastr.error('Oops , seems like something broke!!', 'Oops!');
-                    console.log("Error occurred")
                 });
     }
 
@@ -76,27 +81,76 @@ export class GoogleComponent {
             local.term = jsonObj.term;
             local.content = jsonObj.content;
             local.others = jsonObj.others;
-            local.visitCounter = jsonObj.visitCounter;
+            local.sourceLevel = jsonObj.visitCounter;
             local.createdAt = jsonObj.createdAt;
             pagedData.data.push(local);
         }
         pagedData.page = page;
+        pagedData.data = Utility.convertPagedDataToDisplay(pagedData.data);
         return pagedData;
     }
 
+    convertPagedDataToDisplay(data) {
+        const result = data.map(x => {
+            if (x.sourceLevel > 5) {
+                x.sourceLevel = "Old Source";
+                return x;
+            } else if (x.sourceLevel == 5) {
+                x.sourceLevel = "Fifth Source";
+                return x;
+            } else if (x.sourceLevel == 4) {
+                x.sourceLevel = "Fourth Source";
+                return x;
+            } else if (x.sourceLevel == 3) {
+                x.sourceLevel = "Third Source";
+                return x;
+            } else if (x.sourceLevel == 2) {
+                x.sourceLevel = "Second Source";
+                return x;
+            } else if (x.sourceLevel == 1) {
+                x.sourceLevel = "First Source";
+                return x;
+            }
+        });
+        return result;
+    }
+
     onSort(eve) {
-        this.sortColumn = eve.column.prop + ',' + eve.newValue;
+        if (eve.column.prop == 'sourceLevel') {
+            this.sortColumn = 'visitCounter' + ',' + eve.newValue;
+        } else {
+            this.sortColumn = eve.column.prop + ',' + eve.newValue;
+        }
         this.setPage({ offset: 0 });
         this.page.pageNumber = 1;
     }
 
     onSearch() {
+        this.page.pageNumber = 1;
         this.getDataFromServer();
+    }
+
+    onSelectChange() {
+        if (this.searchColumn == 'source') {
+            this.isSource = true;
+        } else {
+            this.isSource = false;
+        }
     }
 
     onClear() {
         this.searchColumn = '';
+        this.page.pageNumber = 1;
+        this.searchSource = '';
         this.searchKeyword = '';
         this.getDataFromServer();
     }
+
+    toggleExpandRow(row) {
+        this.table.rowDetail.toggleExpandRow(row);
+    }
+
+    onDetailToggle(event) {
+    }
+
 }
