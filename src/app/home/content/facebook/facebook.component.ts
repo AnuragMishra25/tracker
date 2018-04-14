@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { TrackerService } from '../../../services/trackerService';
 import { Page, PagedData } from '../../../helpers/PageClass';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'facebook-component',
@@ -16,7 +17,9 @@ export class FacebookComponent {
     searchKeyword: string = '';
     searchColumn: string = '';
 
-    constructor(private service: TrackerService) {
+    constructor(private service: TrackerService,
+        public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
         this.page.pageNumber = 1;
         this.page.size = 4;
         this.sortColumn = 'id,asc';
@@ -47,10 +50,14 @@ export class FacebookComponent {
         this.service.getFacebookByParams(obj)
             .subscribe(
                 (res) => {
+                    this.toastr.success('Fetching your Facebook Ads visitors!!', 'Success!');
                     let pagedData: any = this.getPagedData(this.page, res.data.rows, res.data.count);
                     this.page = pagedData.page;
                     this.rows = pagedData.data;
-                }, error => console.log("Error occurred"));
+                }, error => {
+                    this.toastr.error('Oops , seems like something broke!!', 'Oops!');
+                    console.log("Error occurred");
+                });
     }
 
     private getPagedData(page: Page, companyData, count) {

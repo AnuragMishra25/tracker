@@ -5,6 +5,10 @@ import { HttpModule } from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CustomOption} from '../app/helpers/customToastOptions';
+
 
 import { AppComponent } from './app.component';
 // import { DataTableModule } from "angular2-datatable";
@@ -37,14 +41,16 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     // DataTableModule,
     ChartModule,
     NgxDatatableModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ToastModule.forRoot()
   ],
-  providers: [],
+  providers: [{provide: ToastOptions, useClass: CustomOption},],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

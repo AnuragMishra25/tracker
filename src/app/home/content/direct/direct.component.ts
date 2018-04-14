@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { TrackerService } from '../../../services/trackerService';
 import { Page, PagedData } from '../../../helpers/PageClass';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'direct-component',
@@ -16,10 +17,13 @@ export class DirectComponent {
     searchKeyword: string = '';
     searchColumn: string = '';
 
-    constructor(private service: TrackerService) {
+    constructor(private service: TrackerService,
+        public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
         this.page.pageNumber = 1;
         this.page.size = 4;
         this.sortColumn = 'id,asc';
+
     }
 
     setPage(pageInfo) {
@@ -47,21 +51,25 @@ export class DirectComponent {
         this.service.getDirectByParams(obj)
             .subscribe(
                 (res) => {
-                    let pagedData: any = this.getPagedData(this.page, res.data.rows, res.data.count);
+                    this.toastr.success('Fetching your Direct Ads visitors!!', 'Success!');
+                    const pagedData: any = this.getPagedData(this.page, res.data.rows, res.data.count);
                     this.page = pagedData.page;
                     this.rows = pagedData.data;
-                }, error => console.log("Error occurred"));
+                }, error => {
+                    this.toastr.error('Oops , seems like something broke!!', 'Oops!');
+                    console.log("Error occurred");
+                });
     }
 
     private getPagedData(page: Page, companyData, count) {
-        let pagedData = new PagedData();
+        const pagedData = new PagedData();
         page.totalElements = count;
         page.totalPages = page.totalElements / page.size;
-        let start = (page.pageNumber * page.size) - page.size;
-        let end = Math.min((start + page.size), page.totalElements);
+        const start = (page.pageNumber * page.size) - page.size;
+        const end = Math.min((start + page.size), page.totalElements);
         for (let i = 0; i < companyData.length; i++) {
-            let jsonObj = companyData[i];
-            let local: any = {};
+            const jsonObj = companyData[i];
+            const local: any = {};
             local.id = jsonObj.id;
             local.campaignName = jsonObj.campaignName;
             local.medium = jsonObj.medium;
