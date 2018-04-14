@@ -22,6 +22,7 @@ import { GoogleComponent } from '../app/home/content/google/google.component'
 import { EmailComponent } from '../app/home/content/email/email.component'
 import { DirectComponent } from '../app/home/content/direct/direct.component'
 import { OrganicComponent } from '../app/home/content/organic/organic.component'
+import { DashboardComponent } from '../app/home/content/dashboard/dashboard.component'
 
 const appRoutes: Routes = [
   {
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent, LoginComponent, HeaderComponent, FooterComponent,
     HomeComponent, ContentComponent, FacebookComponent, GoogleComponent,
-    EmailComponent, DirectComponent, OrganicComponent
+    EmailComponent, DirectComponent, OrganicComponent,DashboardComponent
   ],
   imports: [
     BrowserModule,

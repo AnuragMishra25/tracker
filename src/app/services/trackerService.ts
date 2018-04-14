@@ -109,6 +109,10 @@ export class TrackerService {
             .catch(this.handleError);
     }
 
+    checkUsernamePassword(){
+        
+    }
+
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
     }

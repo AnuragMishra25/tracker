@@ -18,4 +18,8 @@ export class LoginComponent {
     login() {
         this.router.navigateByUrl('/Home');
     }
+
+    checkForAuthentication(){
+        
+    }
 }

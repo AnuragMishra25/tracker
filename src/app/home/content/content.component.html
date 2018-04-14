@@ -22,63 +22,45 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-9" style="background-color: white;">
-            <div [ngSwitch]="currentTab" class="tab-content">
-                <template [ngSwitchCase]="'General'">
-                    <div class="panel-body">
-                        <h4>General</h4>
-                        <form action="">
-                            <div class="row">
-                                <div class="form-group col-xs-2">
-                                    <label>Domain/Page : </label>
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <select>
-                                        <option>funding</option>
-                                        <option>socities</option>
-                                        <option>google</option>
-                                        <option>loada</option>
-                                        <option>ghanta</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="row">
-                            <chart style="height:500px;width: 700px;" [type]="chartType" [data]="data" [options]="options"></chart>
+        <div class="col-xs-9">
+            <div class="row" style="background-color: white;">
+                <div [ngSwitch]="currentTab" class="tab-content">
+                    <template [ngSwitchCase]="'General'">
+                        <div class="panel-body" style="background-color: #f5f5f5;padding-top:0px;">
+                            <dashboard-component></dashboard-component>
                         </div>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'Facebook'">
-                    <div class="panel-body">
-                        <facebook-component></facebook-component>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'Google'">
-                    <div class="panel-body">
-                        <google-component></google-component>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'Email'">
-                    <div class="panel-body">
-                        <email-component></email-component>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'Organic'">
-                    <div class="panel-body">
-                        <organic-component></organic-component>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'Direct'">
-                    <div class="panel-body">
-                        <direct-component></direct-component>
-                    </div>
-                </template>
-                <template [ngSwitchCase]="'User_Journey'">
-                    <div class="panel-body">
-                        User Journey
-                    </div>
-                </template>
+                    </template>
+                    <template [ngSwitchCase]="'Facebook'">
+                        <div class="panel-body">
+                            <facebook-component></facebook-component>
+                        </div>
+                    </template>
+                    <template [ngSwitchCase]="'Google'">
+                        <div class="panel-body">
+                            <google-component></google-component>
+                        </div>
+                    </template>
+                    <template [ngSwitchCase]="'Email'">
+                        <div class="panel-body">
+                            <email-component></email-component>
+                        </div>
+                    </template>
+                    <template [ngSwitchCase]="'Organic'">
+                        <div class="panel-body">
+                            <organic-component></organic-component>
+                        </div>
+                    </template>
+                    <template [ngSwitchCase]="'Direct'">
+                        <div class="panel-body">
+                            <direct-component></direct-component>
+                        </div>
+                    </template>
+                    <template [ngSwitchCase]="'User_Journey'">
+                        <div class="panel-body">
+                            User Journey
+                        </div>
+                    </template>
+                </div>
             </div>
         </div>
     </div>
