@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Colors } from '../../helpers/bootstrapColors';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'content-component',
@@ -7,12 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentComponent {
 
-    currentTab= 'General';
+    currentTab = 'General';
     chartType = 'horizontalBar';
     data: any;
     options: any;
 
-    constructor() {
+    constructor(public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
         this.chartLoad();
     }
 
@@ -26,6 +29,8 @@ export class ContentComponent {
 
     chartLoad() {
         let stack = 'stack 0';
+        // this.toastr.success('Welcome back Anurag, Hope you having a great day!','Success!');
+        this.toastr.info('Welcome back Anurag, Hope you having a great day!');
         this.data = {
             labels: ["First Source", "Second Source", "Third Source", "Fourth Source", "Fifth Source", "Other Sources"],
             datasets: [{
@@ -33,36 +38,36 @@ export class ContentComponent {
                 stack: stack,
                 data: [15, 10, 9, 7, 6, 3],
                 // backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                backgroundColor: 'blue',
-                borderColor: 'rgba(255,99,132,1)',
+                backgroundColor: Colors.primary,
+                borderColor: Colors.primary,
                 borderWidth: 1
             }, {
                 label: 'Google',
                 stack: stack,
                 data: [18, 15, 11, 8, 11, 16],
-                backgroundColor: 'red',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: Colors.danger,
+                borderColor: Colors.danger,
                 borderWidth: 1
             }, {
                 label: 'Organic',
                 stack: stack,
                 data: [23, 20, 18, 13, 16, 21],
-                backgroundColor: 'orange',
-                borderColor: 'rgba(255, 206, 86, 1)',
+                backgroundColor: Colors.warning,
+                borderColor: Colors.warning,
                 borderWidth: 1
             }, {
                 label: 'Direct',
                 stack: stack,
                 data: [17, 12, 7, 15, 18, 23],
-                backgroundColor: 'green',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: Colors.success,
+                borderColor: Colors.success,
                 borderWidth: 1
             }, {
                 label: 'Emails',
                 stack: stack,
                 data: [8, 3, 5, 8, 11, 16],
-                backgroundColor: 'purple',
-                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: Colors.info,
+                borderColor: Colors.info,
                 borderWidth: 1
             }]
         };
