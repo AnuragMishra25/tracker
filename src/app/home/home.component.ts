@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'home-component',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+    selectedDomain: string;
 
-    constructor() {
+    constructor(private router: Router) {
 
+    }
+
+    signout(){
+        console.log('signout');
+        this.router.navigateByUrl('/');
     }
 }
