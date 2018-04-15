@@ -8,6 +8,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CustomOption} from '../app/helpers/customToastOptions';
+import { LoadingModule } from 'ngx-loading';
 
 
 import { AppComponent } from './app.component';
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     ChartModule,
     NgxDatatableModule,
     RouterModule.forRoot(appRoutes),
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    LoadingModule
   ],
   providers: [{provide: ToastOptions, useClass: CustomOption},],
   bootstrap: [AppComponent]

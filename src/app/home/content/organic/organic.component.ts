@@ -21,6 +21,7 @@ export class OrganicComponent {
     searchSource: string = '';
     expanded: any = {};
     @ViewChild('orTable') table: any;
+    loading = false;
 
     constructor(private service: TrackerService,
         public toastr: ToastsManager, vcr: ViewContainerRef) {
@@ -53,14 +54,17 @@ export class OrganicComponent {
             obj.searchColumn = this.searchColumn;
         }
         obj.sortColumn = this.sortColumn;
+        this.loading = true;
         this.service.getOrganicByParams(obj)
             .subscribe(
                 (res) => {
+                    this.loading = false;
                     this.toastr.success('Fetching your Organic Ads visitors!!', 'Success!');
                     let pagedData: any = this.getPagedData(this.page, res.data.rows, res.data.count);
                     this.page = pagedData.page;
                     this.rows = pagedData.data;
                 }, error => {
+                    this.loading = false;
                     this.toastr.error('Oops , seems like something broke!!', 'Oops!');
                     console.log("Error occurred")
                 });

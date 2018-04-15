@@ -19,6 +19,7 @@ export class DashboardComponent {
     conversions: string;
     firstSourceConversions: string;
     ratio: string;
+    loading = false;
 
     constructor(public toastr: ToastsManager, vcr: ViewContainerRef){
         this.toastr.setRootViewContainerRef(vcr);

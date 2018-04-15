@@ -20,6 +20,7 @@ export class GoogleComponent {
     isSource: boolean = false;
     searchSource: string = '';
     expanded: any = {};
+    loading = false;
     @ViewChild('ggTable') table: any;
 
     constructor(private service: TrackerService,
@@ -53,14 +54,17 @@ export class GoogleComponent {
             obj.searchColumn = this.searchColumn;
         }
         obj.sortColumn = this.sortColumn;
+        this.loading = true;
         this.service.getGoogleByParams(obj)
             .subscribe(
                 (res) => {
+                    this.loading = false;
                     this.toastr.success('Fetching your Google Ads visitors!!', 'Success!');
                     let pagedData: any = this.getPagedData(this.page, res.data.rows, res.data.count);
                     this.page = pagedData.page;
                     this.rows = pagedData.data;
                 }, error => {
+                    this.loading=false;
                     this.toastr.error('Oops , seems like something broke!!', 'Oops!');
                 });
     }

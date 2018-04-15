@@ -1,6 +1,7 @@
 <div class="row">
 </div>
 <div class="row" style="margin-top:20px;margin-bottom: 20px">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
     <label class="col-xs-2">Search Column</label>
     <div class="col-xs-2">
         <select [(ngModel)]="searchColumn" (change)="onSelectChange()">
@@ -38,20 +39,10 @@
 </small>
 <div class="row" style="padding-left: 10px;padding-right: 10px;">
     <div>
-        <ngx-datatable #emailTable 
-        class="bootstrap expandable" 
-        [rows]="rows" 
-        [columnMode]="'force'" 
-        [headerHeight]="50" 
-        [footerHeight]="50"
-        [rowHeight]="'auto'" 
-        [externalPaging]="true" 
-        [count]="page.totalElements" 
-        [offset]="page.pageNumber" 
-        [limit]="page.size"
-        (page)='setPage($event)' 
-        (sort)='onSort($event)'>
-        <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ngx-datatable #emailTable class="bootstrap expandable" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
+            (page)='setPage($event)' (sort)='onSort($event)'>
+            <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
                 <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
                     <div style="padding-left:35px;">
                         <div>
